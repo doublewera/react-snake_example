@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+package-lock.json
+server/index.html
+server/assets
+server/vite.svg

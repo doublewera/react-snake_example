@@ -27,3 +27,4 @@ package-lock.json
 server/index.html
 server/assets
 server/vite.svg
+appcfg.js

@@ -1,9 +1,10 @@
 {
-  "name": "chessplayers",
+  "name": "snake",
   "version": "1.0.0",
-  "description": "Learn how NodeJS and Express can interact with PostgreSQL",
+  "description": "Snake NodeJS + ReactJS + PostgreSQL",
   "main": "index.js",
   "license": "GNU",
+  "nooo_type": "module", 
   "dependencies": {
     "express": "^4.18.1",
     "pg": "^8.7.3"

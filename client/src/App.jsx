@@ -6,12 +6,11 @@ import Worm from './components/worm.jsx';
 
 
 function App(props) {
-  const [count, setCount] = useState(0)
   const [color, setColor] = useState(props.color)
 
   return (
     <>
-      <Worm color={color} changeColor={setColor} />
+      <Worm length={3} color={color} changeColor={setColor} />
     </>
   )
 }

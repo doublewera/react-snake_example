@@ -1,30 +1,19 @@
+/* MY CONFIGURATIONS */
+
+const appcfg = require('./appcfg');
+
 /* POSTGRESQL */
 
 const Pool = require('pg').Pool;
-const pool = new Pool({
-  user: 'tutor',
-  host: 'localhost',
-  database: 'academy_top',
-  port: 5432,
-});
+const pool = new Pool(appcfg.pg_cfg);
 
-pool.query(
-    'SELECT * from student',
-    (error, results) => {
-        if (error) {
-            console.log(error)
-        } 
-        console.log(results.rows);
-    });
+/* WEB APPLICATION *//* MY CONFIGURATIONS */
 
-/* WEB APPLICATION */
-const appcfg = require('./appcfg');
 const express = require('express');
 const app = express();
 app.use('/', express.static(appcfg.Project_Root));
+app.use('/assets', express.static(appcfg.Project_Root + '/client/dist/assets'));
 const port = 3001;
-    
-
 app.get('/', (req, res) => {
   res.status(200).sendFile(
     'client/dist/index.html',
@@ -34,10 +23,25 @@ app.get('/', (req, res) => {
     
 app.post('/', (req, res) => {
   res.status(200);
-  res.setHeader(
-    'Content-Type',
-    'application/json');
-  res.end('{"length":5}');
+  console.log('Пошёл запрос к БД');
+  pool.query(
+    'SELECT length from snake',
+    (error, results) => {
+        if (error) {
+            console.log(error)
+        }
+        console.log(
+          'Пришёл ответ из БД: ',
+          results.rows);
+        res.setHeader(
+          'Content-Type',
+          'application/json');
+          /* res.end(JSON.stringify(
+            {length: results.rows})); */
+          res.end(JSON.stringify(
+              {length: 5}));
+    });
+  console.log('А сервер не ждёт!');
 });
 
 

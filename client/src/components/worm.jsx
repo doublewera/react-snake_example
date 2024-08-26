@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import Selem from './selem'
 
+function ktoeto(ia) {
+    console.log(ia);
+}
+
 function Worm(props) {
     const [mylength, setCount] = useState(props.mylen)
     const [mycolor, setMyColor] = useState(props.color)
@@ -15,16 +19,17 @@ function Worm(props) {
     ];
     let result = [];
     for (let i = 0; i < mylength; i++) {
-        // result.push(<Selem color={colors[i]} key={"i" + i} />)
         result.push(<Selem
             newColor={setMyColor}
+            meniaNajali={ktoeto}
             color={mycolor}
             key={"i" + i}
             style={{
                 width: "128px",
                 height: "128px",
                 x: (128 * i) + "px",
-                y: "300px"
+                y: "300px",
+                backgroundColor: colors[i],
             }}
             />)
     }
@@ -49,8 +54,6 @@ function Worm(props) {
               // А надо БРАТЬ тип данных!!!
           }
         }).then((datajson) => {
-            console.log(datajson);
-            console.log(datajson['length']);
             setCount(datajson['length'])
         });
     }

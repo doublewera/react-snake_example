@@ -10,7 +10,7 @@ function App(props) {
 
   return (
     <>
-      <Worm length={3} color={color} changeColor={setColor} />
+      <Worm length={3} x={500} y={700} color={color} changeColor={setColor} />
     </>
   )
 }

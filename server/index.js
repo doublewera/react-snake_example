@@ -18,14 +18,17 @@ pool.query(
     });
 
 /* WEB APPLICATION */
+const appcfg = require('./appcfg');
 const express = require('express');
 const app = express();
-app.use('/',
-    express.static('D:/VM Shared/org/itstep/js/nodejs/reactjs/snake/server/'));
+app.use('/', express.static(appcfg.Project_Root));
 const port = 3001;
     
+
 app.get('/', (req, res) => {
-  res.status(200).sendFile('index.html');
+  res.status(200).sendFile(
+    'client/dist/index.html',
+    { root: appcfg.Project_Root });
 });
 
     
@@ -37,6 +40,7 @@ app.post('/', (req, res) => {
   res.end('{"length":5}');
 });
 
+
 app.listen(port, () => {
-  console.log(`App running on port ${port}.`)
+  console.log(`http://127.0.0.1:${port}.`)
 });

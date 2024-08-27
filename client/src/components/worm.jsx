@@ -39,12 +39,11 @@ function Worm(props) {
             {
               method: "post",
               body: JSON.stringify({
-                  question: "How mutch watch?"
+                  question: "How much watch?"
               }),
-              /* headers: {
-                  'X-CSRFToken': 'mew'//document.querySelector(
-                      //'[name=csrfmiddlewaretoken]').value
-              }*/
+              headers: {
+                'Content-Type': 'application/json',
+              }
             }
           ).then((data) => {
             if (true) {  //data.status == 200)

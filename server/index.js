@@ -11,6 +11,7 @@ const pool = new Pool(appcfg.pg_cfg);
 
 const express = require('express');
 const app = express();
+app.use(express.json());
 app.use('/', express.static(appcfg.Project_Root));
 app.use('/assets', express.static(appcfg.Project_Root + '/client/dist/assets'));
 const port = 3001;
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 
     
 app.post('/', (req, res) => {
+  console.log('Request.BODY: ', req.body);
   res.status(200);
   console.log('Пошёл запрос к БД');
   pool.query(

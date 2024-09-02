@@ -1,7 +1,9 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider, Outlet} from "react-router-dom"
 
-import HomePage from "./pages/HomePage"
+
+
+import HomePage from "./pages/HomePage";
 import Game from "./pages/Game";
 import Navbar from "./pages/Navbar";
 import NoPage from "./pages/NoPage";
@@ -16,7 +18,7 @@ const router = createBrowserRouter([
                 element: <HomePage />  // Root?
             },
             {
-                path: "/game",
+                path: "/Game/:agid",
                 element: <Game />
             },
             {
@@ -37,7 +39,6 @@ function NavbarWrapper(){
 };
 
 function App(props) {
-
   return (
     <div>
       <RouterProvider router={router}/>

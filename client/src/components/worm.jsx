@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
+import { Link } from "react-router-dom"
 import Selem from './selem'
 
 function ktoeto(ia) {
@@ -73,7 +74,7 @@ function Worm(props) {
     ];
     let result = [];
     for (let i = 0; i < myparts.length; i++) {
-        result.push(<Selem
+        result.push(<Link to={`/${i}`}>Mew<Selem
             newColor={setMyColor}
             meniaNajali={ktoeto}
             color={mycolor}
@@ -85,7 +86,7 @@ function Worm(props) {
                 y: myparts[i].y + "px",
                 backgroundColor: colors[i],
             }}
-            />)
+            /></Link>)
     }
     console.log('now mylength is ', myparts.length);
     if (myparts.length != 5) {

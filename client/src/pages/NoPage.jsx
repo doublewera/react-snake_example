@@ -1,5 +1,9 @@
+import { useParams } from 'react-router'
+
 const NoPage = () => {
-    return <h1>404</h1>;
-  };
+  let params = useParams();
+  console.log(params)
+    return <h1>{'404' + params}</h1>;
+};
   
   export default NoPage;

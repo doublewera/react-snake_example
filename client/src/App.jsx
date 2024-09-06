@@ -20,6 +20,10 @@ const router = createBrowserRouter([
                 element: <Game />
             },
             {
+                path: "/:someid",
+                element: <NoPage />
+            },
+            {
                 path: "*",
                 element: <NoPage />
             },

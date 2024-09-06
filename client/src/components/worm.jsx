@@ -16,7 +16,7 @@ function Worm(props) {
     const moveUp = () => {
         let newParts = [{
             x: myparts[0].x,
-            y: myparts[0].y - 128
+            y: myparts[0].y - props.size
         }];
         for (let i = 1; i < myparts.length; i++) {
             newParts.push({
@@ -56,7 +56,7 @@ function Worm(props) {
               let me = [];
               for (let i = 0; i < datajson['length']; i++) {
                   me.push({
-                      x: i * 128 + myparts[0].x,
+                      x: i * props.size + myparts[0].x,
                       y: 0 + myparts[0].y
                   });
               }
@@ -80,8 +80,8 @@ function Worm(props) {
             color={mycolor}
             key={"i" + i}
             style={{
-                width: "128px",
-                height: "128px",
+                width: props.size + "px",
+                height: props.size + "px",
                 x: myparts[i].x + "px",
                 y: myparts[i].y + "px",
                 backgroundColor: colors[i],

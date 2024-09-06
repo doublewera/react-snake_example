@@ -18,7 +18,7 @@ const router = createBrowserRouter([
                 element: <HomePage />  // Root?
             },
             {
-                path: "/Game/:agid",
+                path: "/Game/:size",
                 element: <Game />
             },
             {

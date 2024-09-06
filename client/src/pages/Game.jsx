@@ -1,18 +1,18 @@
 import { useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import Worm from '/src/components/worm.jsx';
+import { useParams } from 'react-router'
+import Worm from '/src/components/worm.jsx'
 
 
 function Game(props) {
   const [color, setColor] = useState(props.color);
-  const rt = useLocation();
-  const game_id = rt.pathname.split('/');
-  console.log('GAME', game_id[game_id.length - 1]);
+  const params = useParams()
+  console.log("My Params: ", params.size)
   return (
       <Worm
-          length={3}
+          length={props.length}
           x={500}
           y={700}
+          size={params.size}
           color={color}
           changeColor={setColor} />
   )

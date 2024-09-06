@@ -10,5 +10,5 @@ export default function Selem(props) {
             top: props.style.y,
             left: props.style.x,
             backgroundColor: props.style.backgroundColor,
-        }}>worm</button>
+        }}></button>
 }

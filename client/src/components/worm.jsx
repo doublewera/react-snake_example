@@ -6,18 +6,8 @@ function ktoeto(ia) {
     console.log(ia);
 }
 
-const initialSnakeState = {
-    y: window.screen.availHeight / 2,
-    x: window.screen.availWidth / 2
-}
-
-function Worm(props) {
-    const [myparts, setParts] = useState([{
-        x: initialSnakeState.x,
-        y: initialSnakeState.y,
-        // todo: get the center of the screen
-    }])
-    const [mycolor, setMyColor] = useState(props.color)
+function Worm(props) { // == TaskList
+    const [myparts, setParts] = useState(props.positions)
     const moveUp = () => {
         let newParts = [{
             x: myparts[0].x,
@@ -80,9 +70,7 @@ function Worm(props) {
     let result = [];
     for (let i = 0; i < myparts.length; i++) {
         result.push(<Link to={`/${i}`}>Mew<Selem
-            newColor={setMyColor}
             meniaNajali={ktoeto}
-            color={mycolor}
             key={"i" + i}
             style={{
                 width: props.size + "px",

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Link } from "react-router-dom"
 import Selem from './selem'
 
@@ -7,7 +7,7 @@ function ktoeto(ia) {
 }
 
 function Worm(props) { // == TaskList
-    const [myparts, setParts] = useState(props.positions)
+    const myparts = props.positions
     const moveUp = () => {
         let newParts = [{
             x: myparts[0].x,
@@ -19,7 +19,10 @@ function Worm(props) { // == TaskList
                 y: myparts[i-1].y,
             });
         }
-        setParts(newParts);
+        //setParts(newParts);
+        props.upd({
+            type: 'moved',
+            st: newParts})
     }
     useEffect( () => {
         const tid = setTimeout(() => {
@@ -55,7 +58,10 @@ function Worm(props) { // == TaskList
                       y: 0 + myparts[0].y
                   });
               }
-              setParts(me);
+              //setParts(me);
+              props.upd({
+                type: 'moved',
+                st: me})
           });
     }
     const colors = [

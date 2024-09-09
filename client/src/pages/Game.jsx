@@ -10,8 +10,6 @@ function Game(props) {
   return (
       <Worm
           length={props.length}
-          x={500}
-          y={700}
           size={params.size}
           color={color}
           changeColor={setColor} />

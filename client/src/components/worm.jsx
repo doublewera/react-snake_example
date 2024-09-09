@@ -6,10 +6,15 @@ function ktoeto(ia) {
     console.log(ia);
 }
 
+const initialSnakeState = {
+    y: window.screen.availHeight / 2,
+    x: window.screen.availWidth / 2
+}
+
 function Worm(props) {
     const [myparts, setParts] = useState([{
-        x: props.x,
-        y: props.y,
+        x: initialSnakeState.x,
+        y: initialSnakeState.y,
         // todo: get the center of the screen
     }])
     const [mycolor, setMyColor] = useState(props.color)

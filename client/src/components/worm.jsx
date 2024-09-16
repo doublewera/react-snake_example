@@ -8,10 +8,11 @@ function ktoeto(ia) {
 
 function Worm(props) { // == TaskList
     const myparts = props.positions
-    const moveUp = () => {
+    const myspeed = props.speed
+    const move = () => {
         let newParts = [{
-            x: myparts[0].x,
-            y: myparts[0].y - props.size
+            x: myparts[0].x + myspeed.dx * props.size,
+            y: myparts[0].y + myspeed.dy * props.size
         }];
         for (let i = 1; i < myparts.length; i++) {
             newParts.push({
@@ -19,14 +20,13 @@ function Worm(props) { // == TaskList
                 y: myparts[i-1].y,
             });
         }
-        //setParts(newParts);
         props.upd({
             type: 'moved',
             st: newParts})
     }
     useEffect( () => {
         const tid = setTimeout(() => {
-            moveUp();
+            move();
         },  1300);
         return () => {
             clearTimeout(tid)
@@ -58,7 +58,6 @@ function Worm(props) { // == TaskList
                       y: 0 + myparts[0].y
                   });
               }
-              //setParts(me);
               props.upd({
                 type: 'moved',
                 st: me})
@@ -87,7 +86,6 @@ function Worm(props) { // == TaskList
             }}
             /></Link>)
     }
-    console.log('now mylength is ', myparts.length);
     if (myparts.length != 5) {
         getFromDb();
     }

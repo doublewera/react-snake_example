@@ -4,6 +4,7 @@ import Worm from '/src/components/worm.jsx'
 
 const initialSnakeState = [
   {
+    i: 10,
     y: window.screen.availHeight / 2,
     x: window.screen.availWidth / 2
   }
@@ -45,7 +46,10 @@ function speedReducer(acr, action) {
 
 function snakeReducer(parts, action) {
   if (action.type === 'moved') {
-    return action.st;
+    if(parts[0].i != 10) {
+       localStorage.setItem('snakeParts', JSON.stringify(action.st))
+    }
+    return action.st
   } else {
     throw Error('Unknown action: ' + action.type);
   }
@@ -54,7 +58,11 @@ function snakeReducer(parts, action) {
 
 
 function Game(props) {
-  const [myparts, setSnakeParts] = useReducer(snakeReducer, initialSnakeState)
+  const my_old_parts = JSON.parse(localStorage.getItem('snakeParts'))
+  console.log(my_old_parts)
+  const [myparts, setSnakeParts] = useReducer(
+    snakeReducer,
+    my_old_parts ? my_old_parts : initialSnakeState)
   const [myspeed, accelerate] = useReducer(speedReducer, initialSpeed)
   const params = useParams()
   const move = () => {
@@ -73,12 +81,12 @@ function Game(props) {
         st: newParts})
   }
   useEffect( () => {
-      const tid = setTimeout(() => {
-          move();
-      },  1300);
-      return () => {
-          clearTimeout(tid)
-      }
+    const tid = setTimeout(() => {
+        move();
+    },  1300);
+    return () => {
+        clearTimeout(tid)
+    }
   })
   const getFromDb = () => {
     fetch(

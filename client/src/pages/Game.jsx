@@ -44,30 +44,9 @@ function speedReducer(acr, action) {
 }
 
 function snakeReducer(parts, action) {
-  /*if (action.type === 'added') {
-    return [
-      ...parts,
-      {
-        id: action.id,
-        text: action.text,
-        done: false,
-      },
-    ];
-  } else */ if (action.type === 'moved') {
+  if (action.type === 'moved') {
     return action.st;
-    //return [...parts,action.st];
-//    return [...parts,];
-//    return parts.map((p) => {return ([{x: p.x, y: p.y}])});
-    //return parts.map((t) => {
-      //if (t.id === action.task.id) {
-      //  return action.task;
-      //} else {
-    //    return t;
-      //}
-    //});
-  }/* else if (action.type === 'deleted') {
-    return tasks.filter((t) => t.id !== action.id);
-  }*/ else {
+  } else {
     throw Error('Unknown action: ' + action.type);
   }
 }
@@ -75,27 +54,83 @@ function snakeReducer(parts, action) {
 
 
 function Game(props) {
-  const [myparts, dispatch] = useReducer(snakeReducer, initialSnakeState)
+  const [myparts, setSnakeParts] = useReducer(snakeReducer, initialSnakeState)
   const [myspeed, accelerate] = useReducer(speedReducer, initialSpeed)
+  const params = useParams()
+  const move = () => {
+    let newParts = [{
+        x: myparts[0].x + myspeed.dx * params.size,
+        y: myparts[0].y + myspeed.dy * params.size
+    }];
+    for (let i = 1; i < myparts.length; i++) {
+        newParts.push({
+            x: myparts[i-1].x,
+            y: myparts[i-1].y,
+        });
+    }
+    setSnakeParts({
+        type: 'moved',
+        st: newParts})
+  }
+  useEffect( () => {
+      const tid = setTimeout(() => {
+          move();
+      },  1300);
+      return () => {
+          clearTimeout(tid)
+      }
+  })
+  const getFromDb = () => {
+    fetch(
+        "http://127.0.0.1:3001/",
+        {
+          method: "post",
+          body: JSON.stringify({
+              question: "How much watch?"
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
+      ).then((data) => {
+        if (true) {  //data.status == 200)
+            console.log('RESPONSE!');
+            return data.json();  // Мы просто знаем...
+            // А надо БРАТЬ тип данных!!!
+        }
+      }).then((datajson) => {
+          let me = [];
+          for (let i = 0; i < datajson['length']; i++) {
+              me.push({
+                  x: i * params.size + myparts[0].x,
+                  y: 0 + myparts[0].y
+              });
+          }
+          setSnakeParts({
+            type: 'moved',
+            st: me})
+      })
+  }
+
+  if (myparts.length != 5) {
+    getFromDb();
+  }
   useEffect(() => {
     window.addEventListener('keypress', e => {
       switch(e.key) {
-        case 'w': accelerate({direction: 'up'}); break;
-        case 'a': accelerate({direction: 'left'}); break;
-        case 's': accelerate({direction: 'down'}); break;
-        case 'd': accelerate({direction: 'right'}); break;
+        case 'w': case 'k': accelerate({direction: 'up'   }); break
+        case 'a': case 'h': accelerate({direction: 'left' }); break
+        case 's': case 'j': accelerate({direction: 'down' }); break
+        case 'd': case 'l': accelerate({direction: 'right'}); break
       }
       console.log(e.key)
     })
   }, [])
-  const params = useParams()
-  console.log("My Params: ", params.size)
   return (
     <Worm
       length={props.length}
       positions={myparts}
       speed={myspeed}
-      upd={dispatch}
       size={params.size}
     />
   )

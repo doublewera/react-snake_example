@@ -4,8 +4,8 @@ const appcfg = require('./appcfg');
 
 /* POSTGRESQL */
 
-//const Pool = require('pg').Pool;
-//const pool = new Pool(appcfg.pg_cfg);
+const Pool = require('pg').Pool;
+const pool = new Pool(appcfg.pg_cfg);
 
 /* WEB APPLICATION *//* MY CONFIGURATIONS */
 
@@ -25,15 +25,10 @@ app.get('/', (req, res) => {
     
 app.post('/', (req, res) => {
   res.status(200);
-  res.end(JSON.stringify(
-    {length: 5}));
-});
-/*
   console.log('Request.BODY: ', req.body);
-  res.status(200);
   console.log('Пошёл запрос к БД');
   pool.query(
-    'SELECT length from snake',
+    'SELECT coord from games',
     (error, results) => {
         if (error) {
             console.log(error)
@@ -48,7 +43,7 @@ app.post('/', (req, res) => {
               {length: 5}));
     });
   console.log('А сервер не ждёт!');
-});*/
+});
 
 
 app.listen(port, () => {

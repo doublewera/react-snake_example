@@ -1,8 +1,6 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider, Outlet} from "react-router-dom"
 
-
-
 import HomePage from "./pages/HomePage";
 import Game from "./pages/Game";
 import Navbar from "./pages/Navbar";
